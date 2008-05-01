@@ -8,7 +8,6 @@
 		<script type="text/javascript" src="js/swfobject.js"></script>
 		<script type="text/javascript">
 		    var flashvars = {};
-			flashvars.interativo = "false";
 			flashvars.contorno = "0xFFFFFF";
 			var params = {};
 			params.allowscriptaccess = "always";
@@ -26,10 +25,7 @@
 			}
 			
 		    function inicializaJulio() {
-		        
-		         
-                  
-                 
+		        //Código a ser executado depois de o mapa carregar
 		    }
 		</script>
 		<link rel="stylesheet" href="http://estatico.ipso.org.br/css/prettify.css" type="text/css">
@@ -56,15 +52,7 @@
 		</div>
 		<div id='container'>
 		<h1>Julio - Documentação</h1>
-		<h2>Índice</h2>
-		    <ul>
-		        <li><a href='#baixar'>Baixar o código</a></li>
-		        <li>Carregar em uma página</li>
-		        <li>Variáveis</li>
-		        <li>Funções</li>
-		        <li>Roadmap</li>
-		    </ul>
-		  <hr>
+		
 		<h4>ATENÇÂO: Não execute este arquivo abrindo diretamente de uma pasta. Use pelo menos um localhost, porque ao contrário o Flash se recusa a conversar com o Javascript.</h4>
 		<a name='baixar' /><h2>Baixar o código</h2>
 		<p>Entre em <a href="http://ipso.googlecode.com">http://ipso.googlecode.com</a> e encontre a pasta julio dentro do trunk</p>
@@ -80,17 +68,28 @@
    		</code> 
    		<p>O <code>julio.js</code> tem a seguinte estrutura:</p>
    		<code class="prettyprint">
-    
+    &lt;script type="text/javascript"&gt;
         var flashvars = {};
-        flashvars.interativo = "false";
-        flashvars.contorno = "0xFFFFFF";
-        var params = {};
-        params.allowscriptaccess = "always";
-        var attributes = {};
-        attributes.id = "julio";
-        attributes.name = "julio";
-        swfobject.embedSWF("flash/julio.swf", "julio", "332", "320", "8.0.0", false, flashvars, params, attributes);
-    
+			flashvars.contorno = "0xFFFFFF";
+			var params = {};
+			params.allowscriptaccess = "always";
+			var attributes = {};
+			attributes.id = "julio";
+			attributes.name = "julio";
+			swfobject.embedSWF("flash/julio.swf", "julio_div", "330", "320", "8.0.0", false, flashvars, params, attributes);
+			
+			function getJulio(nome) {
+	           if(!nome) {
+	                nome = 'julio'
+	            }
+		        var isIE = navigator.appName.indexOf("Microsoft") != -1;
+                return (isIE) ? window[nome] : document[nome];
+			}
+			
+		    function inicializaJulio() {
+		        //Código a ser executado depois de o mapa carregar
+		    }
+    &lt;/script&gt;
    		</code>
    		<p>No código acima, é indispensável haver o <code>allowscriptaccess='always'</code> que permite a conversa entre o Flash e o Javascript. Além disso, dá pau no Internet Explorer se os parâmetros do <code>swfobject.embedSWF()</code> não forem colocados nessa ordem e com esses valores. Altere por sua conta e risco.
    		</p>
@@ -151,9 +150,6 @@
    		    
    		    <dt><code class="prettyprint">diferenca_rollover=25</code></dt>
    		    <dd>A redução de opacidade na UF que deve ocorrer ao passar o mouse sobre ela.</dd>
-   		    
-   		    <dt><code class="prettyprint">legenda=true|false</code></dt>
-   		    <dd>Mostra as siglas dos estados.</dd>
    		    
    		    <dt><code class="prettyprint">zoom_uf='BR'|'AL'...'TO'</code></dt>
    		    <dd>Inicia o mapa aproximado em um determinado estado ou no 'BR'. <a href="#" onClick="javascript:getJulio().zoom('TO'); return false;">[testar]</a></dd>
@@ -251,10 +247,7 @@ coordenadas = [
     ];
 insereLoteLongLat(coordenadas, tamanho=20, cor='0xFF0000', opacidade=30, nome='grupo_de_pontos')
 </code></dt>
-   		    <dd>Insere um ponto no mapa usando X e Y em latitude e longitude no grupo nomeado. Atenção, a margem de erro ainda é grande, por isso os pontos podem não ficar no lugar certo.<a href="#" onClick="getJulio().insereLoteLongLat([[-9.128321,	-70.305667], [-9.654903,	-36.694884], [-3.783865,	-64.94969], [1.60032,	-52.378036], 				[-13.42796,	-41.994208], [-5.321156,	-39.343291],[-15.776049, -47.797185], [-19.596027, -40.772473], [-15.947269, -49.579063], [-5.652143,	-45.275482], [-18.577966, -45.45175]], tamanho=20, cor='0xFF0000', opacidade=70, nome='grupo_de_pontos'); return false;">[testar]</a></dd>
-   		    
-
-   		    
+   		    <dd>Insere um ponto no mapa usando X e Y em latitude e longitude no grupo nomeado. Atenção, a margem de erro ainda é grande, por isso os pontos podem não ficar no lugar certo.<a href="#" onClick="getJulio().insereLoteLongLat([[-9.128321,	-70.305667], [-9.654903,	-36.694884], [-3.783865,	-64.94969], [1.60032,	-52.378036], 				[-13.42796,	-41.994208], [-5.321156,	-39.343291],[-15.776049, -47.797185], [-19.596027, -40.772473], [-15.947269, -49.579063], [-5.652143,	-45.275482], [-18.577966, -45.45175]], tamanho=20, cor='0xFF0000', opacidade=70, nome='grupo_de_pontos'); return false;">[testar]</a></dd>    
    		    
         </dl>
         
