@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>Julio - página de exemplos</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="http://estatico.ipso.org.br/js/prettify.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<script type="text/javascript">
+		    var flashvars = {};
+			flashvars.interativo = "false";
+			flashvars.contorno = "0xFFFFFF";
+			var params = {};
+			params.allowscriptaccess = "always";
+			var attributes = {};
+			attributes.id = "julio";
+			attributes.name = "julio";
+			swfobject.embedSWF("flash/julio.swf", "julio_div", "330", "320", "8.0.0", false, flashvars, params, attributes);
+			
+			function getJulio(nome) {
+	           if(!nome) {
+	                nome = 'julio'
+	            }
+		        var isIE = navigator.appName.indexOf("Microsoft") != -1;
+                return (isIE) ? window[nome] : document[nome];
+			}
+			
+		    function inicializaJulio() {
+		        
+		         
+                  
+                 
+		    }
+		</script>
+		<link rel="stylesheet" href="http://estatico.ipso.org.br/css/prettify.css" type="text/css">
+	    <style>
+	        #julio {
+	            display:block;
+	            position: fixed;
+	            top:50px;
+	            right: 50px;
+	            margin-left: 50px;
+	            margin-bottom: 50px;
+	        }
+	        #container {
+	            margin-right: 400px;
+	        }
+	    </style>
+	    
+	</head>
+
+	<body onload="prettyPrint()">
+		<div id="julio_div">
+			<h1>Você não conseguiu abrir o arquivo Flash</h1>
+			<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Instale Adobe Flash player" /></a></p>
+		</div>
+		<div id='container'>
+		<h1>Julio - Documentação</h1>
+		<h2>Índice</h2>
+		    <ul>
+		        <li><a href='#baixar'>Baixar o código</a></li>
+		        <li>Carregar em uma página</li>
+		        <li>Variáveis</li>
+		        <li>Funções</li>
+		        <li>Roadmap</li>
+		    </ul>
+		  <hr>
+		<h4>ATENÇÂO: Não execute este arquivo abrindo diretamente de uma pasta. Use pelo menos um localhost, porque ao contrário o Flash se recusa a conversar com o Javascript.</h4>
+		<a name='baixar' /><h2>Baixar o código</h2>
+		<p>Entre em <a href="http://ipso.googlecode.com">http://ipso.googlecode.com</a> e encontre a pasta julio dentro do trunk</p>
+		<hr>
+   		<a name='carregar' /><h2>Carregar em uma página</h2>
+   		<p>O pré-requisito é o swfobject. Carregue-o antes de tudo:</p>
+   		<code class="prettyprint">
+    &lt;script type="text/javascript" src="js/swfobject.js"&gt; &lt;/script&gt;
+   		</code> 
+   		<p>E depois o <code>julio.js</code></p>
+   		<code class="prettyprint">
+    &lt;script type="text/javascript" src="js/julio.js"&gt; &lt;/script&gt;
+   		</code> 
+   		<p>O <code>julio.js</code> tem a seguinte estrutura:</p>
+   		<code class="prettyprint">
+    
+        var flashvars = {};
+        flashvars.interativo = "false";
+        flashvars.contorno = "0xFFFFFF";
+        var params = {};
+        params.allowscriptaccess = "always";
+        var attributes = {};
+        attributes.id = "julio";
+        attributes.name = "julio";
+        swfobject.embedSWF("flash/julio.swf", "julio", "332", "320", "8.0.0", false, flashvars, params, attributes);
+    
+   		</code>
+   		<p>No código acima, é indispensável haver o <code>allowscriptaccess='always'</code> que permite a conversa entre o Flash e o Javascript. Além disso, dá pau no Internet Explorer se os parâmetros do <code>swfobject.embedSWF()</code> não forem colocados nessa ordem e com esses valores. Altere por sua conta e risco.
+   		</p>
+   		
+   		<p>No seu código deve existir um div com id julio, que é o lugar onde o mapa será inserido. Geralmente é um div que pode ter um conteúdo alternativo que será exibido no caso de o carregamento do flash dar pau:
+   		<code class="prettyprint">
+    &lt;div id="julio"&gt; Conteúdo alternativo &lt;/div&gt;
+   		</code></p>
+   		<hr>
+   		<a name='modificar' /><h2>Como modificar</h2>
+   		<p>É possível alterar as variáveis predefinidas do julio na hora de carregá-lo ou durante a execução.</p>
+   		<h3>Ao carregar a página</h3>
+   		<p>Para que o mapa apareça na página do jeito que você quer, as variáveis devem ser colocadas dentro do objeto <code>flashvars = {}</code> que o swfobject usa para montar o código do flash que vai ser carregado.</p>
+   		<p>Por exemplo, para carregar um mapa com contorno branco, estados pintados de preto e zoom no estado do Paraná, o seguinte código funcionaria:<br>
+   		 <code class="prettyprint">
+    flashvars.contorno = "0xFFFFFF"
+    flashvars.cor = "0x000000"
+    flashvars.zoom_uf = 'PR'
+   		</code>
+   		</p>
+   		<p>Uma lista de variáveis que podem ser utilizadas e seus possíveis valores está mais abaixo nesta página.</p>
+   		<h3>Com javascript (runtime)</h3>
+   		<p>Caso você deseje alterar o julio via javascript depois de carregado na página, é recomendável que as suas ações sejam disparadas por uma função chamada <code>inicializaJulio()</code>
+   		</p>
+   		<code class="prettyprint">
+    &lt;script type="text/javascript"&gt;
+        function inicializaJulio() {
+            //Esta função é chamada quando o mapa termina de carregar
+            //e está pronto para receber comandos.
+        }
+    &lt;/script&gt; 
+   		</code>
+   		<p>Aí é possível usar as funções da API do julio para mexer no mapa:</p>
+   		<code class="prettyprint">
+    getJulio().mudaCorBr('0x000000')</code> [<a href="#" onClick="getJulio().mudaCorBr('0x000000'); return false;">testar</a>]<br>
+    <code class="prettyprint">
+    getJulio().mudaCorRegiao('0xff3333','nordeste')</code> [<a href="#" onClick="getJulio().mudaCorRegiao('0xff3333','nordeste'); return false;">testar</a>]<br>
+    <code class="prettyprint">
+    getJulio().zoom('SC')</code> [<a href="#" onClick="javascript:getJulio().zoom('SC'); return false;">testar</a>]
+   		
+   		
+   		<hr>
+   		<a name='variaveis' /><h2>Variáveis</h2>
+   		<p>Abaixo, a lista de variáveis que podem ser definidas no <code>flashvars = {}</code></p>
+   		<dl>
+   		    <dt><code class="prettyprint">contorno='0x0000CC'</code></dt>
+   		    <dd>A cor da linha do mapa. <a href="#" onClick="javascript:getJulio().mudaCor('0x0000CC','contorno'); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">cor='0x22CC33'</code></dt>
+   		    <dd>A cor de todas as UFs ao carregar o mapa.<a href="#" onClick="javascript:getJulio().mudaCorBr('0x22CC33'); return false;">[testar]</a></dd>
+   		    
+   		    
+   		    <dt><code class="prettyprint">opacidade=40</code></dt>
+   		    <dd>100 é totalmente opaco e 0 totalmente transparente. <a href="#" onClick="javascript:getJulio().mudaOpacidadeBr(40); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">interativo=true|false</code></dt>
+   		    <dd>Determina se o mapa vai ser interativo ou não. Caso seja true, o mouseover e clique vai funcionar.</dd>
+   		    
+   		    <dt><code class="prettyprint">diferenca_rollover=25</code></dt>
+   		    <dd>A redução de opacidade na UF que deve ocorrer ao passar o mouse sobre ela.</dd>
+   		    
+   		    <dt><code class="prettyprint">legenda=true|false</code></dt>
+   		    <dd>Mostra as siglas dos estados.</dd>
+   		    
+   		    <dt><code class="prettyprint">zoom_uf='BR'|'AL'...'TO'</code></dt>
+   		    <dd>Inicia o mapa aproximado em um determinado estado ou no 'BR'. <a href="#" onClick="javascript:getJulio().zoom('TO'); return false;">[testar]</a></dd>
+            
+            <dt><code class="prettyprint">funcao_tipo='AS'|'JS'</code></dt>
+   		    <dd>Especifica se a função chamada ao clicar em uma UF é 'AS'-actionscript ou 'JS'-javascript. Funções 'AS' devem existir dentro do julio e receber apenas o parâmetro UF. Funções 'JS' devem existir na página onde o julio foi carregado e receber apenas o parâmetro UF.</dd>
+   		    <dt><code class="prettyprint">funcao='minhaFuncao'</code></dt>
+   		    <dd>O nome da função chamada na hora de clicar no estado. Ver item acima.</dd>
+   		    
+   		
+   		</dl>	
+   		<hr>
+   		<a name='funcoes' /><h2>Funções</h2>
+   		<p>O julio tem diversas funções bem simples que combinadas podem atingir resultados complexos. A seguir vemos uma lista delas que podem ser chamadas via Javascript, usando <code>getJulio().nomeDaFuncao(parametros)</code></p>
+   		<p>Perceba que cor e opacidade são propriedades independentes. Você pode ter o país todo com a mesma cor e variar apenas a opacidade entre os estados, por exemplo, ficando com vários tons da mesma cor. 
+   		</p>	
+        <dl>
+            <dt><code class="prettyprint">
+mudaCor('0xFF3333','PA')</code></dt>
+   		    <dd>Altera a cor de uma UF específica. Aceita as siglas de todas as UFs e também 'contorno'. <a href="#" onClick="getJulio().mudaCor('0xFF3333','PA'); return false;">[testar]</a></dd>
+   		    <dt><code class="prettyprint">
+mudaCorRegiao('0x33FF33','centrooeste')</code></dt>
+   		    <dd>Altera a cor de uma região. Aceita 'norte','nordeste','centrooeste','sudeste' e 'sul'. <a href="#" onClick="getJulio().mudaCorRegiao('0x33FF33','centrooeste'); return false;">[testar]</a></dd>
+   		    <dt><code class="prettyprint">
+mudaCorBr('0x3333FF')</code></dt>
+   		    <dd>Altera a cor de todas as UFs. <a href="#" onClick="getJulio().mudaCorBr('0x3333FF'); return false;">[testar]</a></dd>
+   		    <dt><code class="prettyprint">
+mudaOpacidade(20,'MA')</code></dt>
+   		    <dd>Altera a opacidade de uma UF específica. Aceita as siglas de todas as UFs e também 'contorno'. <a href="#" onClick="getJulio().mudaOpacidade(20,'MA'); return false;">[testar]</a></dd>
+   		    <dt><code class="prettyprint">
+mudaOpacidadeRegiao(30,'sul')</code></dt>
+   		    <dd>Altera a opacidade de uma região. Aceita 'norte','nordeste','centrooeste','sudeste' e 'sul'. <a href="#" onClick="getJulio().mudaOpacidadeRegiao(30,'sul'); return false;">[testar]</a></dd>
+   		    <dt><code class="prettyprint">
+mudaOpacidadeBr(90)</code></dt>
+   		    <dd>Altera a opacidade de todas as UFs. <a href="#" onClick="getJulio().mudaOpacidadeBr(90); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+array_de_ufs = ['SP','SC','SE','AC']
+mudaOpacidadeEmLote(70, array_de_ufs) e
+mudaCorEmLote('0xCCFFCC', array_de_ufs)</code></dt>
+   		    <dd>Altera a cor ou a opacidade de um array de siglas. <a href="#" onClick="getJulio().mudaOpacidadeEmLote(70,['SP','SC','SE','AC']); getJulio().mudaCorEmLote('0x22FFCC',['SP','SC','SE','AC']); return false;">[testar os dois]</a>
+   		    
+   		    <dt><code class="prettyprint">
+defineDiferencaRollover(50)</code></dt>
+   		    <dd>Altera a redução de opacidade na UF que deve ocorrer ao passar o mouse sobre ela. <a href="#" onClick="getJulio().defineDiferencaRollover(50); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+destaca('MG')</code></dt>
+   		    <dd>Altera opacidades para deixar UF selecionada em destque. Ocorre automaticamente na função zoom. <a href="#" onClick="getJulio().destaca('MG'); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+defineFuncao('JS','alert')</code></dt>
+   		    <dd>Define que função javascript as UFs chamam ao serem clicadas. <a href="#" onClick="getJulio().defineFuncao('JS','alert'); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+defineFuncao('AS','zoom')</code></dt>
+   		    <dd>Define que função actionscript as UFs chamam ao serem clicadas. <a href="#" onClick="getJulio().defineFuncao('AS','zoom'); return false;">[testar]</a></dd> 
+   		    
+   		    <dt><code class="prettyprint">
+atribuiValor('MT','73%')</code></dt>
+   		    <dd>Define o texto ou número exibido na caixinha azul que aparece ao passar o mouse sobre a UF.<a href="#" onClick="getJulio().atribuiValor('MT','73%'); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+array_de_ufs = ['SP','SC','SE','AC']
+array_de_valores = ['490','120','3','18']
+atribuiValorEmLote(array_de_ufs, array_de_valores)</code></dt>
+   		    <dd>Define o texto ou número exibido na caixinha azul que aparece ao passar o mouse sobre a UF.<a href="#" onClick="getJulio().atribuiValorEmLote(['SP','SC','SE','AC'], ['490','120','3','18']); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+inserePonto(x=165, y=160, tamanho=180, cor='0xFF0000', opacidade=30, nome='grupo_de_pontos')
+inserePonto(x=190, y=100, tamanho=90, cor='0x0000FF', opacidade=30, nome='grupo_de_pontos')</code></dt>
+   		    <dd>Insere um ponto no mapa usando X e Y em pixels.<a href="#" onClick="getJulio().inserePonto(x=165, y=160, tamanho=180, cor='0xFF0000', opacidade=30, nome='grupo_de_pontos'); getJulio().inserePonto(x=190, y=100, tamanho=90, cor='0x0000FF', opacidade=30, nome='grupo_de_pontos'); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+alteraGrupoDePontos('grupo_de_pontos', [['visivel',true], ['cor','0xFF0000'],['tamanho',20],['opacidade',40]])</code></dt>
+   		    <dd>Altera propriedades de um grupo de pontos nomeado.<a href="#" onClick="getJulio().alteraGrupoDePontos('grupo_de_pontos', [['visivel',true], ['cor','0xFF0000'],['tamanho',20],['opacidade',40]]); return false;">[testar]</a></dd>
+   		       		    
+   		    <dt><code class="prettyprint">
+apagaGrupoDePontos('grupo_de_pontos')</code></dt>
+   		    <dd>Deleta para sempre um grupo de pontos nomeado.<a href="#" onClick="getJulio().apagaGrupoDePontos('grupo_de_pontos'); return false;">[testar]</a></dd>
+   		    
+   		    <dt><code class="prettyprint">
+inserePontoLongLat(long=-23.560022 , lat=-46.688643, tamanho=20, cor='0xFF0000', opacidade=30, nome='grupo_de_pontos')
+</code></dt>
+   		    <dd>Insere um ponto no mapa usando X e Y em latitude e longitude no grupo nomeado.<a href="#" onClick="getJulio().inserePontoLongLat(long=-23.560022 , lat=-46.688643, tamanho=20, cor='0xFF0000', opacidade=70, nome='grupo_de_pontos'); return false;">[testar]</a></dd>
+
+   	    <dt><code class="prettyprint">
+coordenadas = [
+    [-9.128321, -70.305667], [-9.654903, -36.694884],
+    [-3.783865,	-64.94969], [1.60032, -52.378036],
+    [-13.42796, -41.994208], [-5.321156, -39.343291],
+    [-15.776049, -47.797185], [-19.596027, -40.772473],
+    [-15.947269, -49.579063], [-5.652143, -45.275482],
+    [-18.577966, -45.45175]
+    ];
+insereLoteLongLat(coordenadas, tamanho=20, cor='0xFF0000', opacidade=30, nome='grupo_de_pontos')
+</code></dt>
+   		    <dd>Insere um ponto no mapa usando X e Y em latitude e longitude no grupo nomeado. Atenção, a margem de erro ainda é grande, por isso os pontos podem não ficar no lugar certo.<a href="#" onClick="getJulio().insereLoteLongLat([[-9.128321,	-70.305667], [-9.654903,	-36.694884], [-3.783865,	-64.94969], [1.60032,	-52.378036], 				[-13.42796,	-41.994208], [-5.321156,	-39.343291],[-15.776049, -47.797185], [-19.596027, -40.772473], [-15.947269, -49.579063], [-5.652143,	-45.275482], [-18.577966, -45.45175]], tamanho=20, cor='0xFF0000', opacidade=70, nome='grupo_de_pontos'); return false;">[testar]</a></dd>
+   		    
+
+   		    
+   		    
+        </dl>
+        
+        <hr>
+   		<a name='funcoes' /><h2>Usos avançados</h2>
+   		<p>-</p>
+   		</div>
+	</body>
+</html>
+
