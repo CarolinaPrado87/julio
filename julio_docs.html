@@ -55,7 +55,7 @@
 		
 		<h4>ATENÇÂO: Não execute este arquivo abrindo diretamente de uma pasta. Use pelo menos um localhost, porque ao contrário o Flash se recusa a conversar com o Javascript.</h4>
 		<a name='baixar' /><h2>Baixar o código</h2>
-		<p>Entre em <a href="http://ipso.googlecode.com">http://ipso.googlecode.com</a> e encontre a pasta julio dentro do trunk</p>
+		<p>Entre em <a href="http://code.google.com/p/julio/source/checkout">http://code.google.com/p/julio/source/checkout</a> e siga as instruções.</p>
 		<hr>
    		<a name='carregar' /><h2>Carregar em uma página</h2>
    		<p>O pré-requisito é o swfobject. Carregue-o antes de tudo:</p>
@@ -231,6 +231,7 @@ alteraGrupoDePontos('grupo_de_pontos', [['visivel',true], ['cor','0xFF0000'],['t
 apagaGrupoDePontos('grupo_de_pontos')</code></dt>
    		    <dd>Deleta para sempre um grupo de pontos nomeado.<a href="#" onClick="getJulio().apagaGrupoDePontos('grupo_de_pontos'); return false;">[testar]</a></dd>
    		    
+   		    <strong>ATENÇÃO: As funções abaixo são experimentais e têm uma margem de erro maior do que a aceitável na localização dos pontos. Use com cuidado.</strong>
    		    <dt><code class="prettyprint">
 inserePontoLongLat(long=-23.560022 , lat=-46.688643, tamanho=20, cor='0xFF0000', opacidade=30, nome='grupo_de_pontos')
 </code></dt>
@@ -252,8 +253,7 @@ insereLoteLongLat(coordenadas, tamanho=20, cor='0xFF0000', opacidade=30, nome='g
         </dl>
         
         <hr>
-   		<a name='funcoes' /><h2>Usos avançados</h2>
-   		<p>-</p>
+ 
    		</div>
 	</body>
 </html>
